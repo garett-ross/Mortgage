@@ -23,10 +23,11 @@ class Mortgage:
         balance = self.principal
         paid = monthly_payment
         repayment_schedule = []
+        #add balance plus interest
 
         for month in range(1, int(self.total_payments) + 1):
             interest = balance * self.monthly_rate
-            principal_payment = monthly_payment - interest
+            principal_payment = monthly_payment - interest # why??
             balance -= principal_payment
             paid += monthly_payment
 

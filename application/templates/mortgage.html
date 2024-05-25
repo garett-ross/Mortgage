@@ -2,12 +2,21 @@
 {% block content %}
 <h2>Enter details for mortgage 1</h2>
 <form name="vars" id="vars" method="post", action="#">
-    <input type="number" name="principal" id="principal" value="300000">
-    <input type="number" name="annual_rate" value="5.0">
-    <input type="number" name="years" value="25">
+    <input type="number" name="principal" id="principal" value={{principal | safe}}>
+    <input type="number" name="annual_rate" value={{rate | safe}}>
+    <input type="number" name="years" value={{years | safe}}>
     <button form="vars" formaction="#" formmethod="post">Update Values</button>
 </form>
-{{content1 | safe}}
-{{fig1 | safe}}
+<div class="container" style="padding: 0%; background-color: rgb(201, 196, 196);">
+    <h3>Values for Mortgage 1</h3>
+    {{fig1 | safe}}
+    {{content1 | safe}}
+</div>
+<div class="container" style="padding: 0%; background-color: rgb(201, 196, 196);">
+    <h3>{{title2 | safe}}</h3>
+    {{fig2 | safe}}
+    {{content2 | safe}}
+</div>
+
 {% endblock %}
 
