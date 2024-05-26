@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.io import to_html
@@ -112,6 +112,8 @@ def home():
 
 
         total_cost = round(max(paid),2)
-        total = f"The total cost is {total_cost}"
+        total = f"Total Cost: {total_cost}"
+        monthly = f"Monthly Payment: {round(monthly_payment[0],2)}"
+        key_data = [total, monthly]
 
-        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, years=years)
+        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, years=years, ul=key_data)
