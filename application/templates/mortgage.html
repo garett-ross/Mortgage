@@ -5,21 +5,36 @@
 <h2 style="text-align: center;">Enter Mortgage Details</h2>
     <div class="container" style="align-items: center; padding: 1%; padding-bottom: 2%;">
     <form name="vars" id="vars" method="post", action="#" style="text-align: center;">
-        <input type="number" name="principal" id="principal" value={{principal | safe}}>
-        <input type="number" name="annual_rate" value={{rate | safe}}>
-        <input type="number" name="years" value={{years | safe}}>
-        <button form="vars" formaction="#" formmethod="post">Update Values</button>
+        <div class="row">
+            <div class="col">
+                <label>Enter Principal</label>
+                <input type="number" name="principal" id="principal" value={{principal | safe}}>
+            </div>
+            <div class="col">
+                <label>Enter Interest Rate</label>
+                <input type="number" name="annual_rate" value={{rate | safe}}>
+            </div>
+            <div class="col">
+                <label>Enter Mortgage Term</label>
+                <input type="number" name="years" value={{years | safe}}>
+            </div>
+            <div class="col">
+                <br>
+            <button form="vars" formaction="#" formmethod="post">Update Values</button>
+            </div>
+        </div>
     </form>
     </div>
     <div class="container" style="padding: 0%; background-color: rgb(201, 196, 196);">
         <h3 style="text-align: center;">Mortgage Values</h3>
-            <div class="row">
-                <div class="col-sm-12 col-md-8">
+            <div class="row" style="padding: 1%;">
+                <div class="col-sm-12 col-md-8" style="background-color: white;">
                 {{fig1 | safe}}
                 </div>
-                <div class="col-sm-12 col-md-4">
-                    <p>Test</p>
-                {{content1 | safe}}
+                <div class="col-sm-12 col-md-4" style="background-color: white; padding: 2%;">
+                    <ul>
+                        {% for li in ul%}<li>{{li}}</li> {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>

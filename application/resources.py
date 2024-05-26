@@ -28,10 +28,10 @@ class Mortgage:
 
         for month in range(1, int(self.total_payments) + 1):
             interest = balance * self.monthly_rate
-            
-            principal_payment = monthly_payment - interest # why??
+            balance += interest
+            principal_payment = monthly_payment - interest
             interest_payment = monthly_payment - principal_payment
-            balance -= principal_payment
+            balance -= (principal_payment + interest_payment)
             accrued_interest += interest - interest_payment
             paid += monthly_payment
             total_owed = balance + accrued_interest

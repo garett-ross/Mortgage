@@ -37,30 +37,31 @@ def home():
             total_owed.append(repayments[i][7])
 
         fig = make_subplots(rows=2, cols=1)
-        fig.update_layout(margin={'t':10,'l':0,'b':0,'r':0})
+        fig.update_layout(margin={'t':10,'l':0,'b':0,'r':0},yaxis=dict(tickformat=".2f"))
         fig.add_trace(
-            go.Scatter(x=month,y=balance,name='Balance', line=dict(dash='dash'))
-            )
+            go.Scatter(x=month,y=balance,name='Balance', line=dict(dash='dash')), secondary_y=False
+            , row=1, col=1)
         fig.add_trace(
-            go.Scatter(x=month, y=total_owed, name='Total Owed')
-        )
-        fig.add_trace(
-            go.Scatter(x=month,y=paid,name='Cumulative Payments',line=dict(dash='dash',color='black')),
-            )
+            go.Scatter(x=month,y=paid,name='Cumulative Payments',line=dict(dash='dash',color='black')), secondary_y=False,
+            row=1, col=1)
         fig.add_traces(data=[
             go.Scatter(x=month, y=principal_payment, name='Principal Payment'),
             go.Scatter(x=month, y=interest, name='Interest')
         ],rows=2,cols=1)
         fig['layout']['xaxis']['title'] = 'Months'
         fig['layout']['xaxis2']['title'] = 'Months'
+        fig['layout']['yaxis']['title'] = 'Value'
+        fig['layout']['yaxis2']['title'] = 'Value'
 
         html = to_html(fig, full_html=False)
 
 
         total_cost = round(max(paid),2)
-        total = f"The total cost is {total_cost}"
+        total = f"Total Cost: {total_cost}"
+        monthly = f"Monthly Payment: {round(monthly_payment[0],2)}"
+        key_data = [total, monthly]
 
-        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, years=years)
+        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, years=years, ul=key_data)
     
     
     
@@ -91,7 +92,7 @@ def home():
             total_owed.append(repayments[i][7])
 
         fig = make_subplots(rows=2, cols=1)
-        fig.update_layout(margin={'t':10,'l':0,'b':0,'r':0})
+        fig.update_layout(margin={'t':10,'l':0,'b':0,'r':0},yaxis=dict(tickformat=".2f"))
         fig.add_trace(
             go.Scatter(x=month,y=balance,name='Balance', line=dict(dash='dash')), secondary_y=False
             , row=1, col=1)
@@ -104,6 +105,8 @@ def home():
         ],rows=2,cols=1)
         fig['layout']['xaxis']['title'] = 'Months'
         fig['layout']['xaxis2']['title'] = 'Months'
+        fig['layout']['yaxis']['title'] = 'Value'
+        fig['layout']['yaxis2']['title'] = 'Value'
 
         html = to_html(fig, full_html=False)
 
