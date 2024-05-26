@@ -1,22 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Enter details for mortgage 1</h2>
-<form name="vars" id="vars" method="post", action="#">
-    <input type="number" name="principal" id="principal" value={{principal | safe}}>
-    <input type="number" name="annual_rate" value={{rate | safe}}>
-    <input type="number" name="years" value={{years | safe}}>
-    <button form="vars" formaction="#" formmethod="post">Update Values</button>
-</form>
-<div class="container" style="padding: 0%; background-color: rgb(201, 196, 196);">
-    <h3>Values for Mortgage 1</h3>
-    {{fig1 | safe}}
-    {{content1 | safe}}
+<div class="container" style="padding: 1%;">
+    <div class="col">
+<h2 style="text-align: center;">Enter Mortgage Details</h2>
+    <div class="container" style="align-items: center; padding: 1%; padding-bottom: 2%;">
+    <form name="vars" id="vars" method="post", action="#" style="text-align: center;">
+        <input type="number" name="principal" id="principal" value={{principal | safe}}>
+        <input type="number" name="annual_rate" value={{rate | safe}}>
+        <input type="number" name="years" value={{years | safe}}>
+        <button form="vars" formaction="#" formmethod="post">Update Values</button>
+    </form>
+    </div>
+    <div class="container" style="padding: 0%; background-color: rgb(201, 196, 196);">
+        <h3 style="text-align: center;">Mortgage Values</h3>
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                {{fig1 | safe}}
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <p>Test</p>
+                {{content1 | safe}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="container" style="padding: 0%; background-color: rgb(201, 196, 196);">
-    <h3>{{title2 | safe}}</h3>
-    {{fig2 | safe}}
-    {{content2 | safe}}
-</div>
+
 
 {% endblock %}
 

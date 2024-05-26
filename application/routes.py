@@ -23,6 +23,8 @@ def home():
         interest = []
         balance = []
         paid = []
+        accrued_interest = []
+        total_owed = []
 
         for i in range(len(repayments)):
             month.append(repayments[i][0])
@@ -31,18 +33,26 @@ def home():
             interest.append(repayments[i][3])
             balance.append(repayments[i][4])
             paid.append(repayments[i][5])
+            accrued_interest.append(repayments[i][6])
+            total_owed.append(repayments[i][7])
 
-        fig = make_subplots(specs=[[{'secondary_y':True}]])
+        fig = make_subplots(rows=2, cols=1)
+        fig.update_layout(margin={'t':10,'l':0,'b':0,'r':0})
         fig.add_trace(
-            go.Scatter(x=month,y=balance,name='Balance', line=dict(dash='dash')), secondary_y=True
+            go.Scatter(x=month,y=balance,name='Balance', line=dict(dash='dash'))
             )
         fig.add_trace(
-            go.Scatter(x=month,y=paid,name='Cumulative Payments',line=dict(dash='dash',color='black')), secondary_y=True,
+            go.Scatter(x=month, y=total_owed, name='Total Owed')
+        )
+        fig.add_trace(
+            go.Scatter(x=month,y=paid,name='Cumulative Payments',line=dict(dash='dash',color='black')),
             )
         fig.add_traces(data=[
             go.Scatter(x=month, y=principal_payment, name='Principal Payment'),
             go.Scatter(x=month, y=interest, name='Interest')
-        ],rows=1,cols=1)
+        ],rows=2,cols=1)
+        fig['layout']['xaxis']['title'] = 'Months'
+        fig['layout']['xaxis2']['title'] = 'Months'
 
         html = to_html(fig, full_html=False)
 
@@ -67,6 +77,8 @@ def home():
         interest = []
         balance = []
         paid = []
+        interest_payment = []
+        total_owed = []
 
         for i in range(len(repayments)):
             month.append(repayments[i][0])
@@ -75,18 +87,23 @@ def home():
             interest.append(repayments[i][3])
             balance.append(repayments[i][4])
             paid.append(repayments[i][5])
+            interest_payment.append(repayments[i][6])
+            total_owed.append(repayments[i][7])
 
-        fig = make_subplots(specs=[[{'secondary_y':True}]])
+        fig = make_subplots(rows=2, cols=1)
+        fig.update_layout(margin={'t':10,'l':0,'b':0,'r':0})
         fig.add_trace(
-            go.Scatter(x=month,y=balance,name='Balance', line=dict(dash='dash')), secondary_y=True
-            )
+            go.Scatter(x=month,y=balance,name='Balance', line=dict(dash='dash')), secondary_y=False
+            , row=1, col=1)
         fig.add_trace(
-            go.Scatter(x=month,y=paid,name='Cumulative Payments',line=dict(dash='dash',color='black')), secondary_y=True,
-            )
+            go.Scatter(x=month,y=paid,name='Cumulative Payments',line=dict(dash='dash',color='black')), secondary_y=False,
+            row=1, col=1)
         fig.add_traces(data=[
             go.Scatter(x=month, y=principal_payment, name='Principal Payment'),
             go.Scatter(x=month, y=interest, name='Interest')
-        ],rows=1,cols=1)
+        ],rows=2,cols=1)
+        fig['layout']['xaxis']['title'] = 'Months'
+        fig['layout']['xaxis2']['title'] = 'Months'
 
         html = to_html(fig, full_html=False)
 
