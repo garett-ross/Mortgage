@@ -13,8 +13,9 @@ def home():
     if request.method == 'POST':
         loan_amount = float(request.form['principal'])
         rate = float(request.form['annual_rate'])
+        overpayment = float(request.form['overpayment'])
         years = float(request.form['years'])
-        mortgage = Mortgage(loan_amount,rate,years)
+        mortgage = Mortgage(loan_amount,rate,years, overpayment)
         repayments = mortgage.simulate_repayments()
 
         month = []
@@ -46,7 +47,7 @@ def home():
             row=1, col=1)
         fig.add_traces(data=[
             go.Scatter(x=month, y=principal_payment, name='Principal Payment'),
-            go.Scatter(x=month, y=interest, name='Interest')
+            go.Scatter(x=month, y=interest, name='Interest Payment')
         ],rows=2,cols=1)
         fig['layout']['xaxis']['title'] = 'Months'
         fig['layout']['xaxis2']['title'] = 'Months'
@@ -61,7 +62,7 @@ def home():
         monthly = f"Monthly Payment: {round(monthly_payment[0],2)}"
         key_data = [total, monthly]
 
-        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, years=years, ul=key_data)
+        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, overpayment=overpayment, years=years, ul=key_data)
     
     
     
@@ -69,7 +70,8 @@ def home():
         loan_amount = 300000
         rate = 5.0
         years = 25
-        mortgage = Mortgage(loan_amount,rate,years)
+        overpayment = 0.0
+        mortgage = Mortgage(loan_amount,rate,years, overpayment)
         repayments = mortgage.simulate_repayments()
 
         month = []
@@ -101,7 +103,7 @@ def home():
             row=1, col=1)
         fig.add_traces(data=[
             go.Scatter(x=month, y=principal_payment, name='Principal Payment'),
-            go.Scatter(x=month, y=interest, name='Interest')
+            go.Scatter(x=month, y=interest, name='Interest Payment')
         ],rows=2,cols=1)
         fig['layout']['xaxis']['title'] = 'Months'
         fig['layout']['xaxis2']['title'] = 'Months'
@@ -116,4 +118,4 @@ def home():
         monthly = f"Monthly Payment: {round(monthly_payment[0],2)}"
         key_data = [total, monthly]
 
-        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, years=years, ul=key_data)
+        return render_template('mortgage.html', content1=total,fig1=html, principal=loan_amount, rate=rate, overpayment=overpayment, years=years, ul=key_data)

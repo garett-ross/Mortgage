@@ -4,7 +4,7 @@ from decimal import Decimal, getcontext
 getcontext().prec = 50
 
 class Mortgage:
-    def __init__(self, principal, annual_rate, years):
+    def __init__(self, principal, annual_rate, years, overpayment):
         if principal <= 0 or annual_rate <= 0 or years <= 0:
             raise ValueError("Principal, annual rate, and years must be greater than zero.")
         self.principal = Decimal(principal)
@@ -12,11 +12,15 @@ class Mortgage:
         self.years = Decimal(years)
         self.monthly_rate = self.annual_rate / Decimal(12 * 100)
         self.total_payments = self.years * Decimal(12)
+        self.overpayment = overpayment
+
 
     def calculate_monthly_payment(self):
         numerator = self.principal * self.monthly_rate
         denominator = Decimal(1) - (Decimal(1) + self.monthly_rate) ** -self.total_payments
-        return numerator / denominator
+        monthly =  numerator / denominator
+        extra = monthly * (Decimal(self.overpayment)/100)
+        return monthly + extra
     
     def simulate_repayments(self):
         monthly_payment = self.calculate_monthly_payment()

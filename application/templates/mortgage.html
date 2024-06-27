@@ -3,26 +3,33 @@
 <div class="container" style="padding: 1%;">
     <div class="col">
 <h2 style="text-align: center;">Enter Mortgage Details</h2>
+<p style="text-align: center;">This is a running instance of <a href="https://github.com/garett-ross/Mortgage">github.com/garett-ross/Mortgage</a>. The proejct uses the Python Flask web framework to run the website; Bootstrap for the front end; Plotly for graphing; and a lot of maths and array operations in a custom Python class in the background.</p>
+<p style="text-align: center;">The purpose is to visualise the behaviour of a mortgage over time - it's not just a matter of monthly payments. I wanted to know what I would be paying when and how small changes would affect the bottom line.</p>
+<p style="text-align: center;">Your input is passed to a class which estimates the values of interest, principal, and balance for each month in the mortgage term. It assumes however that your monthly payments, overpayments, and interest rate remain constant. The class iterates through each month in the mortgage term and calculates the values at each stage, adding them to an array. These arrays are then used to create the plotly graph seen below.</p>
     <div class="container" style="align-items: center; padding: 1%; padding-bottom: 2%;">
     <form name="vars" id="vars" method="post", action="#" style="text-align: center;">
         <div class="row">
             <div class="col">
-                <label>Enter Principal</label>
-                <input type="number" name="principal" id="principal" value={{principal | safe}}>
+                <label for="principal">Enter Principal</label>
+                <input type="number" name="principal" id="principal" value="{{principal | safe}}" class="form-control">
             </div>
             <div class="col">
-                <label>Enter Interest Rate</label>
-                <input type="number" name="annual_rate" value={{rate | safe}}>
+                <label for="annual_rate">Enter Interest Rate</label>
+                <input type="number", step="any" name="annual_rate" id="annual_rate" value="{{rate | safe}}" class="form-control">
             </div>
             <div class="col">
-                <label>Enter Mortgage Term</label>
-                <input type="number" name="years" value={{years | safe}}>
+                <label for="annual_rate">Enter Overpayment Rate (%)</label>
+                <input type="number", step="any" name="overpayment" id="annual_rate" value="{{overpayment | safe}}" class="form-control">
             </div>
             <div class="col">
-                <br>
-            <button form="vars" formaction="#" formmethod="post">Update Values</button>
+                <label for="years">Enter Mortgage Term</label>
+                <input type="number" name="years" id="years" value="{{years | safe}}" class="form-control">
+            </div>
+            <div class="col d-flex align-items-end">
+                <button form="vars" formaction="#" formmethod="post" class="btn btn-primary" style="background-color: rgb(201, 196, 196); color: black; border-color: rgb(201, 196, 196);">Update Values</button>
             </div>
         </div>
+        
     </form>
     </div>
     <div class="container" style="padding: 0%; background-color: rgb(201, 196, 196);">
@@ -32,9 +39,15 @@
                 {{fig1 | safe}}
                 </div>
                 <div class="col-sm-12 col-md-4" style="background-color: white; padding: 2%;">
+                    <h2>Summary Values</h2>
                     <ul>
                         {% for li in ul%}<li>{{li}}</li> {% endfor %}
                     </ul>
+                    <br>
+                    <h2>Explanation</h2>
+                    <p>Top plot shows accumulation of payments and the decreasing balance.</p>
+                    <p>Bottom plot shows the split between interest payments and principal payments:</p>
+                    <p>At the beginning more of the monthly payment goes towards interest, at the end mostly principal is paid off.</p>
                 </div>
             </div>
         </div>
